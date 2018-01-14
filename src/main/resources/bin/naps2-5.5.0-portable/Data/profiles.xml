@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<ArrayOfScanProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ScanProfile>
+    <Device>
+      <ID>Samsung Universal Scan Driver</ID>
+      <Name>Samsung Universal Scan Driver</Name>
+    </Device>
+    <DriverName>twain</DriverName>
+    <DisplayName>CLX3175FW_GLASS</DisplayName>
+    <IconID>0</IconID>
+    <MaxQuality>false</MaxQuality>
+    <IsDefault>true</IsDefault>
+    <Version>2</Version>
+    <UseNativeUI>false</UseNativeUI>
+    <AfterScanScale>OneToOne</AfterScanScale>
+    <Brightness>0</Brightness>
+    <Contrast>0</Contrast>
+    <BitDepth>Grayscale</BitDepth>
+    <PageAlign>Right</PageAlign>
+    <PageSize>A4</PageSize>
+    <Resolution>Dpi150</Resolution>
+    <PaperSource>Glass</PaperSource>
+    <EnableAutoSave>false</EnableAutoSave>
+    <Quality>80</Quality>
+    <AutoDeskew>false</AutoDeskew>
+    <BrightnessContrastAfterScan>true</BrightnessContrastAfterScan>
+    <ForcePageSize>false</ForcePageSize>
+    <ForcePageSizeCrop>false</ForcePageSizeCrop>
+    <TwainImpl>Default</TwainImpl>
+    <ExcludeBlankPages>false</ExcludeBlankPages>
+    <BlankPageWhiteThreshold>70</BlankPageWhiteThreshold>
+    <BlankPageCoverageThreshold>25</BlankPageCoverageThreshold>
+    <WiaOffsetWidth>false</WiaOffsetWidth>
+    <WiaRetryOnFailure>false</WiaRetryOnFailure>
+    <WiaDelayBetweenScans>false</WiaDelayBetweenScans>
+    <WiaDelayBetweenScansSeconds>2</WiaDelayBetweenScansSeconds>
+    <FlipDuplexedPages>false</FlipDuplexedPages>
+  </ScanProfile>
+  <ScanProfile>
+    <Device>
+      <ID>Samsung Universal Scan Driver</ID>
+      <Name>Samsung Universal Scan Driver</Name>
+    </Device>
+    <DriverName>twain</DriverName>
+    <DisplayName>CLX3175FW_FEEDER</DisplayName>
+    <IconID>0</IconID>
+    <MaxQuality>false</MaxQuality>
+    <IsDefault>false</IsDefault>
+    <Version>2</Version>
+    <UseNativeUI>false</UseNativeUI>
+    <AfterScanScale>OneToOne</AfterScanScale>
+    <Brightness>0</Brightness>
+    <Contrast>0</Contrast>
+    <BitDepth>Grayscale</BitDepth>
+    <PageAlign>Right</PageAlign>
+    <PageSize>A4</PageSize>
+    <Resolution>Dpi150</Resolution>
+    <PaperSource>Feeder</PaperSource>
+    <EnableAutoSave>false</EnableAutoSave>
+    <Quality>80</Quality>
+    <AutoDeskew>false</AutoDeskew>
+    <BrightnessContrastAfterScan>true</BrightnessContrastAfterScan>
+    <ForcePageSize>false</ForcePageSize>
+    <ForcePageSizeCrop>false</ForcePageSizeCrop>
+    <TwainImpl>Default</TwainImpl>
+    <ExcludeBlankPages>false</ExcludeBlankPages>
+    <BlankPageWhiteThreshold>70</BlankPageWhiteThreshold>
+    <BlankPageCoverageThreshold>25</BlankPageCoverageThreshold>
+    <WiaOffsetWidth>false</WiaOffsetWidth>
+    <WiaRetryOnFailure>false</WiaRetryOnFailure>
+    <WiaDelayBetweenScans>false</WiaDelayBetweenScans>
+    <WiaDelayBetweenScansSeconds>2</WiaDelayBetweenScansSeconds>
+    <FlipDuplexedPages>false</FlipDuplexedPages>
+  </ScanProfile>
+</ArrayOfScanProfile>

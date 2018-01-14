@@ -1,0 +1,1 @@
+var admsApp = angular.module('paperless', [ 'ngRoute', 'ngResource', 'repositories', 'scanner', 'documents', 'document', 'properties', 'descriptionTypes', 'descriptionIndex' ]);

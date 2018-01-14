@@ -1,0 +1,12 @@
+<form class="navbar-form navbar-right">
+	<div class="form-group" data-ng-repeat="scannerSource in $ctrl.scannerSources">
+		<label class="radio-inline" for="{{scannerSource}}"> {{ scannerSource }} </label> <input type="radio"
+			data-ng-model="$ctrl.scanOptions.source" data-ng-value="scannerSource" id="{{scannerSource}}" name="source">
+	</div>
+	<div class="form-group">
+		<div class="col-sm-2">
+			<input type="number" data-ng-model="$ctrl.scanOptions.number" class="form-control text-right">
+		</div>
+	</div>
+	<button data-ng-click="$ctrl.callScan()" class="btn btn-default">Scan</button>
+</form>

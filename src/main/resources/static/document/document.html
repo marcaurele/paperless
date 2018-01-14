@@ -1,0 +1,17 @@
+<div class="row">
+	<div class="col-lg-8">
+		<div class="embed-responsive embed-responsive-max" id="embedDocument" style="height: 950px"></div>
+	</div>
+	<div class="col-lg-4">
+		<div class="panel panel-default">
+			<div class="panel-heading">Properties</div>
+			<div class="panel-body">
+				<form>
+					<properties descriptions="$ctrl.document.descriptions"></properties>
+					<button type="submit" class="btn btn-success" data-ng-click="$ctrl.update(true)" tabindex="8">Archive</button>
+					<button type="submit" class="btn" data-ng-click="$ctrl.update()" tabindex="8">Save</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

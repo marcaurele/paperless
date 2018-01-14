@@ -1,0 +1,32 @@
+{"properties": [
+  {
+    "name": "root.archive",
+    "type": "java.lang.String",
+    "description": "A description for 'root.archive'"
+  },
+  {
+    "name": "root.incoming",
+    "type": "java.lang.String",
+    "description": "A description for 'root.incoming'"
+  },
+  {
+    "name": "root.dictionaries",
+    "type": "java.lang.String",
+    "description": "A description for 'root.dictionaries'"
+  },
+  {
+    "name": "root.index",
+    "type": "java.lang.String",
+    "description": "A description for 'root.index'"
+  },
+  {
+    "name": "tool.exif",
+    "type": "java.lang.String",
+    "description": "A description for 'tool.exif'"
+  },
+  {
+    "name": "tool.naps2",
+    "type": "java.lang.String",
+    "description": "A description for 'tool.naps2'"
+  }
+]}

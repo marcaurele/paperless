@@ -1,0 +1,35 @@
+<div class="form-group" data-ng-repeat="descriptionType in $ctrl.descriptionTypes track by $index">
+	<label for="input{{descriptionType.name}}">{{descriptionType.name}}</label>
+	<div data-ng-repeat="n in $ctrl.range($ctrl.descriptions[descriptionType.name])" class="input-group">
+		<input type="text" class="form-control" id="{{descriptionType.name}}_{{n}}" tabindex="{{$index + 1}}"
+			data-ng-model="$ctrl.descriptions[descriptionType.name][n]" data-ng-focus="$ctrl.init(descriptionType.name)"
+			list="{{descriptionType.name}}">
+		<div class="input-group-btn">
+			<button data-ng-if="descriptionType.collection" data-ng-click="$ctrl.addElement(descriptionType.name)"
+				class="btn btn-default" type="button">
+				<span class="glyphicon glyphicon-plus"></span>
+			</button>
+			<button data-ng-if="descriptionType.collection" data-ng-click="$ctrl.removeElement(descriptionType.name,n)"
+				class="btn btn-default" type="button">
+				<span class="glyphicon glyphicon-minus"></span>
+			</button>
+			<button class="btn btn-default" data-ng-click="$ctrl.clear(descriptionType.name,n)" class="btn btn-default"
+				type="button">
+				<span class="glyphicon glyphicon-remove"></span>
+			</button>
+		</div>
+	</div>
+	<descriptionlist data-ng-if="descriptionType.indexed" type="descriptionType.name"></descriptionlist>
+</div>
+<div data-ng-if="$ctrl.contents" class="form-group">
+	<label for="inputContents">contents</label>
+	<div class="input-group">
+		<input type="text" class="form-control" id="inputContents" tabindex="100"
+			data-ng-model="$ctrl.descriptions['contents'][0]" data-ng-focus="$ctrl.init('contents')">
+		<div class="input-group-btn">
+			<button class="btn btn-default" data-ng-click="$ctrl.clear('contents',0)" class="btn btn-default" type="button">
+				<span class="glyphicon glyphicon-remove"></span>
+			</button>
+		</div>
+	</div>
+</div>
