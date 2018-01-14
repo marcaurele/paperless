@@ -8,9 +8,6 @@ import java.util.Calendar;
 
 import org.junit.Test;
 
-import space.paperless.domain.DescriptionType;
-import space.paperless.domain.Document;
-
 /**
  * Created by vince on 22.01.2017.
  */
@@ -81,22 +78,20 @@ public class DocumentTest {
 	public void create_oldDescriptionIsParsedCorrectly() throws Exception {
 		// given
 		String documentId = "201610_document1.pdf";
-		String description = "blabla::blabla::thirdparty:Administration publique/Administration communale Lausanne/Enfance, jeunesse et cohesion sociale;type:Attestation/Frais;reference:Personne/Noemie;reference:Personne/Solene::";
+		String description = "blabla::blabla::thirdparty:Public/City/Youth;type:Attestation/Fee;reference:Person/One;reference:Person/Two::";
 
 		// when
 		Document document = new Document(documentId, description);
 
 		// then
 		assertEquals(6, document.getDescriptions().size());
-		assertThat(document.getDescriptions().get(DescriptionType.TYPE.getName()), hasItem("Attestation/Frais"));
-		assertThat(document.getDescriptions().get(DescriptionType.REFERENCE.getName()), hasItem("Personne/Noemie"));
-		assertThat(document.getDescriptions().get(DescriptionType.REFERENCE.getName()), hasItem("Personne/Solene"));
-		assertThat(document.getDescriptions().get(DescriptionType.THIRDPARTY.getName()), hasItem(
-				"Administration publique/Administration communale Lausanne/Enfance, jeunesse et cohesion sociale"));
-		assertEquals("Attestation/Frais", document.getFirstDescriptionValue(DescriptionType.TYPE));
-		assertEquals("Personne/Noemie", document.getFirstDescriptionValue(DescriptionType.REFERENCE));
-		assertEquals("Administration publique/Administration communale Lausanne/Enfance, jeunesse et cohesion sociale",
-				document.getFirstDescriptionValue(DescriptionType.THIRDPARTY));
+		assertThat(document.getDescriptions().get(DescriptionType.TYPE.getName()), hasItem("Attestation/Fee"));
+		assertThat(document.getDescriptions().get(DescriptionType.REFERENCE.getName()), hasItem("Person/One"));
+		assertThat(document.getDescriptions().get(DescriptionType.REFERENCE.getName()), hasItem("Person/Two"));
+		assertThat(document.getDescriptions().get(DescriptionType.THIRDPARTY.getName()), hasItem("Public/City/Youth"));
+		assertEquals("Attestation/Fee", document.getFirstDescriptionValue(DescriptionType.TYPE));
+		assertEquals("Person/One", document.getFirstDescriptionValue(DescriptionType.REFERENCE));
+		assertEquals("Public/City/Youth", document.getFirstDescriptionValue(DescriptionType.THIRDPARTY));
 		assertEquals("2016", document.getFirstDescriptionValue(DescriptionType.YEAR));
 		assertEquals("10", document.getFirstDescriptionValue(DescriptionType.MONTH));
 		assertEquals("document1.pdf", document.getFirstDescriptionValue(DescriptionType.NAME));
