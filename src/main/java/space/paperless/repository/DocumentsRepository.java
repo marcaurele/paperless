@@ -23,20 +23,21 @@ import space.paperless.command.CommandFailedException;
 import space.paperless.domain.DescriptionType;
 import space.paperless.domain.Document;
 import space.paperless.domain.RepositoryId;
-import space.paperless.exif.Exif;
+import space.paperless.pdfmeta.PDFMetadata;
 import space.paperless.repository.RepositoryIndex.DocumentIndexer;
 
 public class DocumentsRepository {
 
 	private RepositoryId repositoryId;
 	private File root;
-	private Exif exif;
+	private PDFMetadata pdfMetadata;
 	private RepositoryIndex repositoryIndex;
 
-	public DocumentsRepository(RepositoryId repositoryId, File root, Exif exif, RepositoryIndex repositoryIndex) {
+	public DocumentsRepository(RepositoryId repositoryId, File root, PDFMetadata pdfMetadata,
+			RepositoryIndex repositoryIndex) {
 		this.repositoryId = repositoryId;
 		this.root = root;
-		this.exif = exif;
+		this.pdfMetadata = pdfMetadata;
 		this.repositoryIndex = repositoryIndex;
 	}
 
@@ -62,7 +63,7 @@ public class DocumentsRepository {
 			return null;
 		}
 
-		return new Document(documentId, exif.readDescription(documentFile));
+		return new Document(documentId, pdfMetadata.readDescription(documentFile));
 	}
 
 	public InputStream getDocumentStream(String documentId) throws FileNotFoundException {
@@ -109,7 +110,7 @@ public class DocumentsRepository {
 			return null;
 		}
 
-		exif.writeDescription(sourceFile, sourceDocument.toDescription());
+		pdfMetadata.writeDescription(sourceFile, sourceDocument.toDescription());
 
 		String destinationId = getDocumentId(sourceDocument);
 		File destinationFile = getDocumentFile(destinationId);
@@ -130,7 +131,7 @@ public class DocumentsRepository {
 	}
 
 	public List<Document> reindex() throws IOException {
-		String[] descriptions = exif.readDescriptions(root);
+		String[] descriptions = pdfMetadata.readDescriptions(root);
 
 		if (descriptions != null && descriptions.length > 0) {
 			List<Document> documents = new ArrayList<>(descriptions.length);

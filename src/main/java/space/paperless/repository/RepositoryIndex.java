@@ -34,6 +34,8 @@ import org.apache.lucene.store.FSDirectory;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.encryption.InvalidPasswordException;
 import org.apache.pdfbox.text.PDFTextStripper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.MultiValueMap;
 
 import space.paperless.domain.DescriptionType;
@@ -41,6 +43,8 @@ import space.paperless.domain.Document;
 import space.paperless.domain.RepositoryId;
 
 public class RepositoryIndex {
+
+	private static final Logger LOG = LoggerFactory.getLogger(RepositoryIndex.class);
 
 	private static final int MAX_HITS = 100;
 	private static final String DOCUMENT_ID = "documentId";
@@ -207,7 +211,7 @@ public class RepositoryIndex {
 		}
 
 		public void indexDocument(File documentFile, Document document) throws IOException {
-			System.out.println("Indexing " + documentFile);
+			LOG.debug("Indexing {}", documentFile);
 			writer.addDocument(toLuceneDocument(documentFile, document));
 		}
 

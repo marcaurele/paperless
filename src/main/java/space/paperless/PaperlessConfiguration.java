@@ -15,7 +15,8 @@ import space.paperless.domain.DescriptionType;
 import space.paperless.domain.RepositoryId;
 import space.paperless.domain.impl.FlatFileIndex;
 import space.paperless.domain.impl.FolderNamesIndex;
-import space.paperless.exif.Exif;
+import space.paperless.pdfmeta.PDFMetadata;
+import space.paperless.pdfmeta.PDFMetadataPDFBox;
 import space.paperless.repository.DocumentsRepository;
 import space.paperless.repository.RepositoryIndex;
 
@@ -39,14 +40,14 @@ public class PaperlessConfiguration {
 		return new File(root);
 	}
 
-	@Bean(name = "exifTool")
-	public File exifTool(@Value("${tool.exif}") String tool) {
-		return new File(tool);
-	}
-
 	@Bean(name = "scannerTool")
 	public File scannerTool(@Value("${tool.naps2}") String tool) {
 		return new File(tool);
+	}
+
+	@Bean(name = "pdfMetadata")
+	public PDFMetadata PDFMetadata() {
+		return new PDFMetadataPDFBox();
 	}
 
 	@Bean("dictionariesRoot")
@@ -70,15 +71,15 @@ public class PaperlessConfiguration {
 	}
 
 	@Bean("archive")
-	public DocumentsRepository archive(@Qualifier("archiveRoot") File root, Exif exif,
+	public DocumentsRepository archive(@Qualifier("archiveRoot") File root, PDFMetadata pdfMetadata,
 			@Qualifier("archiveIndex") RepositoryIndex repositoryIndex) {
-		return new DocumentsRepository(RepositoryId.ARCHIVE, root, exif, repositoryIndex);
+		return new DocumentsRepository(RepositoryId.ARCHIVE, root, pdfMetadata, repositoryIndex);
 	}
 
 	@Bean("incoming")
-	public DocumentsRepository incoming(@Qualifier("incomingRoot") File root, Exif exif,
+	public DocumentsRepository incoming(@Qualifier("incomingRoot") File root, PDFMetadata pdfMetadata,
 			@Qualifier("incomingIndex") RepositoryIndex repositoryIndex) {
-		return new DocumentsRepository(RepositoryId.INCOMING, root, exif, repositoryIndex);
+		return new DocumentsRepository(RepositoryId.INCOMING, root, pdfMetadata, repositoryIndex);
 	}
 
 	@Bean(name = "complement")
