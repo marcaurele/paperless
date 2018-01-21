@@ -2,31 +2,31 @@
   {
     "name": "root.archive",
     "type": "java.lang.String",
-    "description": "A description for 'root.archive'"
+    "description": "Path to archived documents"
   },
   {
     "name": "root.incoming",
     "type": "java.lang.String",
-    "description": "A description for 'root.incoming'"
+    "description": "Path to incoming documents"
   },
   {
     "name": "root.dictionaries",
     "type": "java.lang.String",
-    "description": "A description for 'root.dictionaries'"
+    "description": "Path to dictionaries of types, third-parties, etc."
   },
   {
     "name": "root.index",
     "type": "java.lang.String",
-    "description": "A description for 'root.index'"
-  },
-  {
-    "name": "tool.exif",
-    "type": "java.lang.String",
-    "description": "A description for 'tool.exif'"
+    "description": "Path to Lucene index"
   },
   {
     "name": "tool.naps2",
     "type": "java.lang.String",
-    "description": "A description for 'tool.naps2'"
+    "description": "Path to NAPS2 command line utility"
+  },
+  {
+    "name": "tool.naps2.sources",
+    "type": "java.lang.String",
+    "description": "List of scan sources"
   }
 ]}

@@ -14,9 +14,9 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentInformation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
-import space.paperless.command.CommandFailedException;
-
+@Component
 public class PDFMetadataPDFBox implements PDFMetadata {
 
 	private static final Logger LOG = LoggerFactory.getLogger(PDFMetadataPDFBox.class);
@@ -53,7 +53,7 @@ public class PDFMetadataPDFBox implements PDFMetadata {
 	}
 
 	@Override
-	public void writeDescription(File toFile, String description) throws IOException, CommandFailedException {
+	public void writeDescription(File toFile, String description) throws IOException {
 		PDDocument document = PDDocument.load(toFile);
 
 		try {

@@ -20,7 +20,6 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import space.paperless.command.CommandFailedException;
 import space.paperless.domain.DescriptionType;
 import space.paperless.domain.Document;
 import space.paperless.domain.RepositoryId;
@@ -78,7 +77,7 @@ public class DocumentsRepositoryTest {
 	}
 
 	@Test
-	public void update_existingDocument_documentIsUpdated() throws CommandFailedException, IOException {
+	public void update_existingDocument_documentIsUpdated() throws IOException {
 		// given
 		String sourceDocumentId = createPDF(TYPE2_FOLDER, DOCUMENT3_PDF);
 		String destinationDocumentId = IdUtils.id(RepositoryId.ARCHIVE.getName(), TYPE1_FOLDER, DOCUMENT4_PDF);

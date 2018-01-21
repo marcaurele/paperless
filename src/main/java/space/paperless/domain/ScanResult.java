@@ -1,6 +1,6 @@
 package space.paperless.domain;
 
-import space.paperless.command.CommandResult;
+import space.paperless.scanner.naps2.CommandResult;
 
 public class ScanResult {
 

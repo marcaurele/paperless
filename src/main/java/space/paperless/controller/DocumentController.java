@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import space.paperless.command.CommandFailedException;
 import space.paperless.domain.Document;
 import space.paperless.domain.RepositoryId;
 import space.paperless.repository.DescriptionIndexer;
@@ -51,7 +50,7 @@ public class DocumentController {
 	@RequestMapping(value = "/documents")
 	public ResponseEntity<List<Resource<Document>>> getDocuments(@PathVariable String repositoryId,
 			@RequestParam(required = false) MultiValueMap<String, String> filters)
-			throws IOException, CommandFailedException, DecoderException {
+			throws IOException, DecoderException {
 		DocumentsRepository repository = rootToRepository.get(repositoryId);
 
 		if (repository == null) {
@@ -73,7 +72,7 @@ public class DocumentController {
 
 	@RequestMapping(value = "/documents/{documentId:.+}")
 	public ResponseEntity<Resource<Document>> getDocument(@PathVariable String repositoryId,
-			@PathVariable String documentId) throws IOException, CommandFailedException, DecoderException {
+			@PathVariable String documentId) throws IOException, DecoderException {
 		DocumentsRepository repository = rootToRepository.get(repositoryId);
 
 		if (repository == null) {
@@ -90,7 +89,7 @@ public class DocumentController {
 	}
 
 	private Resource<Document> getDocumentResource(String repositoryId, Document document)
-			throws IOException, CommandFailedException, DecoderException {
+			throws IOException, DecoderException {
 		Resource<Document> resource = new Resource<>(document);
 
 		resource.add(linkTo(methodOn(DocumentController.class).getDocument(repositoryId, document.getDocumentId()))
@@ -104,8 +103,7 @@ public class DocumentController {
 	@RequestMapping(value = "/documents/{documentId:.+}", method = RequestMethod.PUT)
 	public ResponseEntity<Resource<Document>> updateDocument(@PathVariable String repositoryId,
 			@PathVariable String documentId, @RequestBody Document document,
-			@RequestParam(defaultValue = "false") boolean archive)
-			throws IOException, CommandFailedException, DecoderException {
+			@RequestParam(defaultValue = "false") boolean archive) throws IOException, DecoderException {
 		DocumentsRepository sourceRepository = rootToRepository.get(repositoryId);
 		DocumentsRepository destinationRepository = rootToRepository
 				.get(archive ? RepositoryId.ARCHIVE.getName() : sourceRepository.getRepositoryId().getName());

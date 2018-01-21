@@ -12,11 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import space.paperless.command.CommandFailedException;
 import space.paperless.domain.ScanOptions;
 import space.paperless.domain.ScanResult;
-import space.paperless.domain.ScanSource;
-import space.paperless.scanner.ScannerToPDF;
+import space.paperless.scanner.Scanner;
+import space.paperless.scanner.ScanningFailedException;
 
 @RestController
 public class ScanController {
@@ -26,11 +25,11 @@ public class ScanController {
 	private File destination;
 
 	@Autowired
-	private ScannerToPDF scanner;
+	private Scanner scanner;
 
 	@RequestMapping(value = "/scans", method = RequestMethod.POST)
 	public ResponseEntity<ScanResult> scan(@RequestBody ScanOptions scanOptions)
-			throws CommandFailedException, IOException {
+			throws ScanningFailedException, IOException {
 		ScanResult result;
 
 		result = scanner.scan(scanOptions, destination);
@@ -39,7 +38,7 @@ public class ScanController {
 	}
 
 	@RequestMapping("/scannerSources")
-	public ResponseEntity<ScanSource[]> sources() {
-		return new ResponseEntity<ScanSource[]>(ScanSource.values(), HttpStatus.OK);
+	public ResponseEntity<String[]> sources() {
+		return new ResponseEntity<String[]>(scanner.getSources(), HttpStatus.OK);
 	}
 }

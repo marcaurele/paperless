@@ -3,8 +3,6 @@ package space.paperless.pdfmeta;
 import java.io.File;
 import java.io.IOException;
 
-import space.paperless.command.CommandFailedException;
-
 public interface PDFMetadata {
 
 	/*
@@ -27,6 +25,6 @@ public interface PDFMetadata {
 	 * @see space.paperless.exif.Exif#writeDescription(java.io.File,
 	 * java.lang.String)
 	 */
-	void writeDescription(File toFile, String description) throws IOException, CommandFailedException;
+	void writeDescription(File toFile, String description) throws IOException;
 
 }

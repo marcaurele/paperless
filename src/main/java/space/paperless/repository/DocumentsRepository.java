@@ -19,7 +19,6 @@ import org.apache.commons.io.FileExistsException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.MultiValueMap;
 
-import space.paperless.command.CommandFailedException;
 import space.paperless.domain.DescriptionType;
 import space.paperless.domain.Document;
 import space.paperless.domain.RepositoryId;
@@ -56,7 +55,7 @@ public class DocumentsRepository {
 				.collect(Collectors.toList());
 	}
 
-	public Document getDocument(String documentId) throws CommandFailedException, IOException {
+	public Document getDocument(String documentId) throws IOException {
 		File documentFile = getDocumentFile(documentId);
 
 		if (documentFile == null || !documentFile.exists()) {
@@ -102,8 +101,7 @@ public class DocumentsRepository {
 		return true;
 	}
 
-	public Document update(Document sourceDocument, DocumentsRepository sourceRepository)
-			throws CommandFailedException, IOException {
+	public Document update(Document sourceDocument, DocumentsRepository sourceRepository) throws IOException {
 		File sourceFile = sourceRepository.getDocumentFile(sourceDocument.getDocumentId());
 
 		if (sourceFile == null || !sourceFile.exists()) {

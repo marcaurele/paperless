@@ -48,7 +48,7 @@ public class PDFMetadataPDFBoxTest {
 		// when reading description
 		pdfMetadata.readDescription(document);
 
-		// then CommandFailedException is thrown
+		// then ScanningFailedException is thrown
 	}
 
 	@Test
@@ -75,7 +75,7 @@ public class PDFMetadataPDFBoxTest {
 		// when writing description
 		pdfMetadata.writeDescription(document, "");
 
-		// then CommandFailedException is thrown
+		// then ScanningFailedException is thrown
 	}
 
 }

@@ -1,4 +1,4 @@
-package space.paperless.command;
+package space.paperless.scanner.naps2;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -16,6 +16,10 @@ public class Command {
 	public Command(File executable) {
 		super();
 		processBuilder = new ProcessBuilder(executable.toString());
+	}
+
+	public Command(String executable) {
+		this(new File(executable));
 	}
 
 	public Command add(String element) {

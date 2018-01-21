@@ -16,7 +16,6 @@ import space.paperless.domain.RepositoryId;
 import space.paperless.domain.impl.FlatFileIndex;
 import space.paperless.domain.impl.FolderNamesIndex;
 import space.paperless.pdfmeta.PDFMetadata;
-import space.paperless.pdfmeta.PDFMetadataPDFBox;
 import space.paperless.repository.DocumentsRepository;
 import space.paperless.repository.RepositoryIndex;
 
@@ -38,16 +37,6 @@ public class PaperlessConfiguration {
 	@Bean("incomingRoot")
 	public File incomingRoot(@Value("${root.incoming}") String root) {
 		return new File(root);
-	}
-
-	@Bean(name = "scannerTool")
-	public File scannerTool(@Value("${tool.naps2}") String tool) {
-		return new File(tool);
-	}
-
-	@Bean(name = "pdfMetadata")
-	public PDFMetadata PDFMetadata() {
-		return new PDFMetadataPDFBox();
 	}
 
 	@Bean("dictionariesRoot")

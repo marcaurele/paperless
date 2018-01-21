@@ -5,7 +5,6 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.hasItems;
 
 import java.io.File;
-import java.util.Arrays;
 
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
@@ -21,9 +20,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import space.paperless.controller.ScanController;
 import space.paperless.domain.ScanOptions;
-import space.paperless.domain.ScanSource;
+import space.paperless.scanner.Scanner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
@@ -33,10 +31,13 @@ public class ScanControllerTest {
 	@Autowired
 	private ScanController controller;
 
+	@Autowired
+	private Scanner scanner;
+
 	@Test
 	public void get_scanSource_scanSourcesAreReturned() {
 		given().standaloneSetup(controller).when().get("/scannerSources").then().statusCode(200).body("$",
-				hasItems(Arrays.asList(ScanSource.values()).stream().map(t -> t.name()).toArray(String[]::new)));
+				hasItems(scanner.getSources()));
 	}
 
 	@Test
@@ -45,7 +46,7 @@ public class ScanControllerTest {
 		ScanOptions options = new ScanOptions();
 
 		options.setNumber(1);
-		options.setSource(ScanSource.CLX3175FW_GLASS);
+		options.setSource("flatbed");
 
 		ObjectMapper objectMapper = new ObjectMapper();
 

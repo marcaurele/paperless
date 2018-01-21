@@ -2,14 +2,14 @@ package space.paperless.domain;
 
 public class ScanOptions {
 
-	private ScanSource source;
+	private String source;
 	private int number;
 
-	public ScanSource getSource() {
+	public String getSource() {
 		return source;
 	}
 
-	public void setSource(ScanSource source) {
+	public void setSource(String source) {
 		this.source = source;
 	}
 

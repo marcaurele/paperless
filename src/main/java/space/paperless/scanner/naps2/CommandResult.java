@@ -1,4 +1,4 @@
-package space.paperless.command;
+package space.paperless.scanner.naps2;
 
 public class CommandResult {
     private int exitCode;
