@@ -1,5 +1,6 @@
 package space.paperless.repository;
 
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -17,7 +18,7 @@ import space.paperless.domain.Document;
 @Component
 public class DescriptionIndexer {
 
-	private final Map<DescriptionType, DescriptionIndex> typeToIndex = new HashMap<>();
+	private final Map<DescriptionType, DescriptionIndex> typeToIndex = new EnumMap<>(DescriptionType.class);
 
 	@Autowired
 	public DescriptionIndexer(List<DescriptionIndex> indexes) {

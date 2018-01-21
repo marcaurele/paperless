@@ -25,6 +25,7 @@ import org.apache.lucene.index.Term;
 import org.apache.lucene.search.BooleanClause;
 import org.apache.lucene.search.BooleanQuery;
 import org.apache.lucene.search.IndexSearcher;
+import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.search.TopDocs;
@@ -94,17 +95,24 @@ public class RepositoryIndex {
 		BooleanQuery.Builder builder = new BooleanQuery.Builder();
 
 		for (Map.Entry<String, List<String>> filter : filters.entrySet()) {
-			if (filter.getValue() != null) {
-				for (String value : filter.getValue()) {
-					if (!StringUtils.isBlank(value)) {
-						if (isTokenized(filter.getKey())) {
-							builder.add(new WildcardQuery(new Term(filter.getKey(), "*" + value.toLowerCase() + "*")),
-									BooleanClause.Occur.MUST);
-						} else {
-							builder.add(new TermQuery(new Term(filter.getKey(), value)), BooleanClause.Occur.MUST);
-						}
-					}
+			if (filter.getValue() == null) {
+				continue;
+			}
+
+			for (String value : filter.getValue()) {
+				if (StringUtils.isBlank(value)) {
+					continue;
 				}
+
+				Query query;
+
+				if (isTokenized(filter.getKey())) {
+					query = new WildcardQuery(new Term(filter.getKey(), "*" + value.toLowerCase() + "*"));
+				} else {
+					query = new TermQuery(new Term(filter.getKey(), value));
+				}
+
+				builder.add(query, BooleanClause.Occur.MUST);
 			}
 		}
 
@@ -151,23 +159,22 @@ public class RepositoryIndex {
 
 		// index description
 		for (Entry<String, Set<String>> description : document.getDescriptions().entrySet()) {
-			if (description.getValue() != null && !description.getValue().isEmpty()) {
-				for (String value : description.getValue()) {
-					luceneDocument.add(new Field(description.getKey(), value,
-							isTokenized(description.getKey()) ? TYPE_TOKENIZED : TYPE_NOT_TOKENIZED));
-				}
+			if (description.getValue() == null || description.getValue().isEmpty()) {
+				continue;
+			}
+
+			for (String value : description.getValue()) {
+				luceneDocument.add(new Field(description.getKey(), value,
+						isTokenized(description.getKey()) ? TYPE_TOKENIZED : TYPE_NOT_TOKENIZED));
 			}
 		}
 
 		// index content
 		if (documentFile != null) {
 			StringWriter writer = new StringWriter();
-			PDDocument pdfDocument = null;
-			FileInputStream fileInputStream = null;
 
-			try {
-				fileInputStream = new FileInputStream(documentFile);
-				pdfDocument = PDDocument.load(fileInputStream, "");
+			try (FileInputStream fileInputStream = new FileInputStream(documentFile);
+					PDDocument pdfDocument = PDDocument.load(fileInputStream, "")) {
 
 				if (stripper == null) {
 					stripper = new PDFTextStripper();
@@ -178,13 +185,6 @@ public class RepositoryIndex {
 			} catch (InvalidPasswordException e) {
 				throw new IOException("Error: The document(" + documentFile + ") is encrypted and will not be indexed.",
 						e);
-			} finally {
-				if (fileInputStream != null) {
-					fileInputStream.close();
-				}
-				if (pdfDocument != null) {
-					pdfDocument.close();
-				}
 			}
 		}
 
@@ -223,7 +223,7 @@ public class RepositoryIndex {
 			try {
 				writer.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				LOG.warn("Unable to close writer");
 			}
 		}
 	}

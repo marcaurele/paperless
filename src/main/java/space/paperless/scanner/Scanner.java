@@ -8,7 +8,7 @@ import space.paperless.domain.ScanResult;
 
 public interface Scanner {
 
-	ScanResult scan(ScanOptions scanOptions, File toFolder) throws IOException, ScanningFailedException;
+	ScanResult scan(ScanOptions scanOptions, File toFolder) throws IOException;
 
 	String[] getSources();
 }

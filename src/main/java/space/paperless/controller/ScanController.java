@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import space.paperless.domain.ScanOptions;
 import space.paperless.domain.ScanResult;
 import space.paperless.scanner.Scanner;
-import space.paperless.scanner.ScanningFailedException;
 
 @RestController
 public class ScanController {
@@ -28,8 +27,7 @@ public class ScanController {
 	private Scanner scanner;
 
 	@RequestMapping(value = "/scans", method = RequestMethod.POST)
-	public ResponseEntity<ScanResult> scan(@RequestBody ScanOptions scanOptions)
-			throws ScanningFailedException, IOException {
+	public ResponseEntity<ScanResult> scan(@RequestBody ScanOptions scanOptions) throws IOException {
 		ScanResult result;
 
 		result = scanner.scan(scanOptions, destination);
@@ -39,6 +37,6 @@ public class ScanController {
 
 	@RequestMapping("/scannerSources")
 	public ResponseEntity<String[]> sources() {
-		return new ResponseEntity<String[]>(scanner.getSources(), HttpStatus.OK);
+		return new ResponseEntity<>(scanner.getSources(), HttpStatus.OK);
 	}
 }

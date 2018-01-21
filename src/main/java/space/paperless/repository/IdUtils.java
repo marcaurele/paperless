@@ -10,6 +10,10 @@ import org.apache.commons.lang3.StringUtils;
 public class IdUtils {
 	private static final char ID_SEPARATOR = ':';
 
+	private IdUtils() {
+		super();
+	}
+
 	public static final String id(String... parts) {
 		if (parts == null) {
 			return "";
@@ -38,7 +42,7 @@ public class IdUtils {
 		return builder.toString();
 	}
 
-	public static final Set<String> augmentWithParents(char separator, Set<String> elements) {
+	public static final Set<String> augmentWithParents(Set<String> elements) {
 		Set<String> augmented = new HashSet<>(elements);
 
 		if (elements != null && !elements.isEmpty()) {
@@ -65,9 +69,7 @@ public class IdUtils {
 			return null;
 		}
 
-		return documentId != null
-				? documentId.substring(documentId.indexOf(ID_SEPARATOR) + 1).replace(ID_SEPARATOR, File.separatorChar)
-				: null;
+		return documentId.substring(documentId.indexOf(ID_SEPARATOR) + 1).replace(ID_SEPARATOR, File.separatorChar);
 	}
 
 	public static final String idToFileName(String documentId) {

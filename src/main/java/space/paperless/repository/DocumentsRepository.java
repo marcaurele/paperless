@@ -58,7 +58,7 @@ public class DocumentsRepository {
 	public Document getDocument(String documentId) throws IOException {
 		File documentFile = getDocumentFile(documentId);
 
-		if (documentFile == null || !documentFile.exists()) {
+		if (!documentFile.exists()) {
 			return null;
 		}
 
@@ -104,7 +104,7 @@ public class DocumentsRepository {
 	public Document update(Document sourceDocument, DocumentsRepository sourceRepository) throws IOException {
 		File sourceFile = sourceRepository.getDocumentFile(sourceDocument.getDocumentId());
 
-		if (sourceFile == null || !sourceFile.exists()) {
+		if (!sourceFile.exists()) {
 			return null;
 		}
 
@@ -214,5 +214,25 @@ public class DocumentsRepository {
 
 	public File getFilesRoot() {
 		return root;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((repositoryId == null) ? 0 : repositoryId.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		DocumentsRepository other = (DocumentsRepository) obj;
+		return repositoryId == other.repositoryId;
 	}
 }

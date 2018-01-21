@@ -55,4 +55,29 @@ public class FolderNamesIndex extends DescriptionIndex {
 
 		return elements;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((filesRepository == null) ? 0 : filesRepository.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		FolderNamesIndex other = (FolderNamesIndex) obj;
+		if (filesRepository == null) {
+			if (other.filesRepository != null)
+				return false;
+		} else if (!filesRepository.equals(other.filesRepository))
+			return false;
+		return true;
+	}
 }

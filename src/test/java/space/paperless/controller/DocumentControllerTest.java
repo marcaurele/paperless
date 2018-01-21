@@ -3,9 +3,7 @@ package space.paperless.controller;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.hasItem;
-import static org.hamcrest.CoreMatchers.hasItems;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,18 +27,6 @@ public class DocumentControllerTest {
 
 	@Autowired
 	private DocumentController controller;
-
-	@Test
-	@Ignore
-	public void get_documents_documentsAreReturned() {
-		ValidatableMockMvcResponse response = given().standaloneSetup(controller).when()
-				.get("/repositories/archive/documents").then();
-
-		response.statusCode(200);
-		response.body("$.size", equalTo(2)).body("documentId",
-				hasItems(IdUtils.id("archive", "type2", "201501_Captain_Future.pdf"),
-						IdUtils.id("archive", "type2", "201410_Astro_Boy.pdf")));
-	}
 
 	@Test
 	public void get_document_documentIsReturned() {

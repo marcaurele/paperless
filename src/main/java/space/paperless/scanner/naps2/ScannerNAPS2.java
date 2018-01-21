@@ -33,7 +33,7 @@ public class ScannerNAPS2 implements Scanner {
 	 * java.io.File)
 	 */
 	@Override
-	public ScanResult scan(ScanOptions scanOptions, File toFolder) throws IOException, ScanningFailedException {
+	public ScanResult scan(ScanOptions scanOptions, File toFolder) throws IOException {
 		String toFile = getScanResultFile(toFolder);
 		Command scan = new Command(pathToScannerExecutable);
 

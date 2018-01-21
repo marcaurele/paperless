@@ -45,6 +45,6 @@ public class FilesController {
 
 		InputStream inputStream = repository.getDocumentStream(documentId);
 
-		return new ResponseEntity<InputStreamResource>(new InputStreamResource(inputStream), HttpStatus.OK);
+		return new ResponseEntity<>(new InputStreamResource(inputStream), HttpStatus.OK);
 	}
 }

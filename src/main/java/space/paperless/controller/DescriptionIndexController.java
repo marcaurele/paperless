@@ -54,7 +54,7 @@ public class DescriptionIndexController {
 			return ResponseEntity.notFound().build();
 		}
 
-		return new ResponseEntity<IndexResource>(getIndexResource(index), HttpStatus.OK);
+		return new ResponseEntity<>(getIndexResource(index), HttpStatus.OK);
 	}
 
 	private IndexResource getIndexResource(DescriptionIndex index) {

@@ -25,7 +25,7 @@ public class DescriptionTypeController {
 		List<Resource<DescriptionType>> types = new ArrayList<>(DescriptionType.values().length);
 
 		for (DescriptionType type : DescriptionType.values()) {
-			Resource<DescriptionType> resource = new Resource<DescriptionType>(type);
+			Resource<DescriptionType> resource = new Resource<>(type);
 
 			if (type.isIndexed()) {
 				resource.add(entityLinks.linkToSingleResource(DescriptionIndex.class, type.getName()).withRel("index"));

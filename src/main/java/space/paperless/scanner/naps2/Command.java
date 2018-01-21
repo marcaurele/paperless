@@ -33,9 +33,9 @@ public class Command {
 	}
 
 	public CommandResult execute() throws IOException {
-		LOG.info("About to execute {}", processBuilder.command().toString());
-
-		// processBuilder.redirectErrorStream(true);
+		if (LOG.isInfoEnabled()) {
+			LOG.info("About to execute {}", processBuilder.command().toString());
+		}
 
 		Process process = processBuilder.start();
 		StringBuilder output = new StringBuilder();

@@ -63,10 +63,10 @@ public class DocumentController {
 			resources.add(getDocumentResource(repositoryId, document));
 		}
 
-		if (resources == null || resources.isEmpty()) {
+		if (resources.isEmpty()) {
 			return ResponseEntity.noContent().build();
 		} else {
-			return new ResponseEntity<List<Resource<Document>>>(resources, HttpStatus.OK);
+			return new ResponseEntity<>(resources, HttpStatus.OK);
 		}
 	}
 
@@ -85,7 +85,7 @@ public class DocumentController {
 			return ResponseEntity.notFound().build();
 		}
 
-		return new ResponseEntity<Resource<Document>>(getDocumentResource(repositoryId, document), HttpStatus.OK);
+		return new ResponseEntity<>(getDocumentResource(repositoryId, document), HttpStatus.OK);
 	}
 
 	private Resource<Document> getDocumentResource(String repositoryId, Document document)
@@ -119,8 +119,7 @@ public class DocumentController {
 
 		// TODO: create exception handler
 		if (movedDocument != null) {
-			return new ResponseEntity<Resource<Document>>(getDocumentResource(repositoryId, movedDocument),
-					HttpStatus.OK);
+			return new ResponseEntity<>(getDocumentResource(repositoryId, movedDocument), HttpStatus.OK);
 		} else {
 			return ResponseEntity.notFound().build();
 		}

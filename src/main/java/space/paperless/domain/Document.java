@@ -10,6 +10,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -18,6 +20,7 @@ import space.paperless.repository.IdUtils;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Document implements Comparable<Document> {
 
+	private static final Logger LOG = LoggerFactory.getLogger(Document.class);
 	private static final Pattern FIELD_MATCHER = Pattern.compile("(\\w+)=\\{(.*?)\\}");
 	private static final Pattern OLD_DESCRIPTION_MATCHER = Pattern.compile("(.+?):(.+?)(;|$)");
 	private static final Pattern FILENAME_MATCHER = Pattern.compile("(20[12][0-9])([01][0-9]).*?_(.+)");
@@ -77,29 +80,25 @@ public class Document implements Comparable<Document> {
 			Matcher matcher = FILENAME_MATCHER.matcher(fileName);
 
 			if (matcher.matches()) {
-				if (StringUtils.isBlank(year)) {
-					setDescriptionValue(DescriptionType.YEAR, matcher.group(1));
-				}
-				if (StringUtils.isBlank(month)) {
-					setDescriptionValue(DescriptionType.MONTH, matcher.group(2));
-				}
-				if (StringUtils.isBlank(name)) {
-					setDescriptionValue(DescriptionType.NAME, matcher.group(3));
-				}
+				fixMandatoryDescriptionFields(matcher);
 			} else {
-				Calendar today = Calendar.getInstance();
-
-				if (StringUtils.isBlank(year)) {
-					setDescriptionValue(DescriptionType.YEAR, String.format("%1$tY", today));
-				}
-				if (StringUtils.isBlank(month)) {
-					setDescriptionValue(DescriptionType.MONTH, String.format("%1$tm", today));
-				}
-				if (StringUtils.isBlank(name)) {
-					setDescriptionValue(DescriptionType.NAME, fileName);
-				}
+				defaultMandatoryDescriptionFields(fileName);
 			}
 		}
+	}
+
+	private void fixMandatoryDescriptionFields(Matcher matcher) {
+		setDescriptionValueIfBlank(DescriptionType.YEAR, matcher.group(1));
+		setDescriptionValueIfBlank(DescriptionType.MONTH, matcher.group(2));
+		setDescriptionValueIfBlank(DescriptionType.NAME, matcher.group(3));
+	}
+
+	private void defaultMandatoryDescriptionFields(String fileName) {
+		Calendar today = Calendar.getInstance();
+
+		setDescriptionValueIfBlank(DescriptionType.YEAR, String.format("%1$tY", today));
+		setDescriptionValueIfBlank(DescriptionType.MONTH, String.format("%1$tm", today));
+		setDescriptionValueIfBlank(DescriptionType.NAME, fileName);
 	}
 
 	public String getDocumentId() {
@@ -148,6 +147,14 @@ public class Document implements Comparable<Document> {
 		values.add(value);
 	}
 
+	private void setDescriptionValueIfBlank(DescriptionType descriptionType, String newValue) {
+		String oldValue = getFirstDescriptionValue(descriptionType);
+
+		if (StringUtils.isBlank(oldValue)) {
+			setDescriptionValue(descriptionType, newValue);
+		}
+	}
+
 	private void fromDescription(String description) {
 		Matcher fieldMatcher = FIELD_MATCHER.matcher(description);
 
@@ -157,7 +164,7 @@ public class Document implements Comparable<Document> {
 			try {
 				addDescriptionValue(DescriptionType.findByName(fieldMatcher.group(1)), fieldMatcher.group(2).trim());
 			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
+				LOG.error("Unable to parse description " + description, e);
 			}
 		}
 	}
@@ -177,7 +184,7 @@ public class Document implements Comparable<Document> {
 					addDescriptionValue(DescriptionType.findByName(fieldMatcher.group(1)),
 							fieldMatcher.group(2).trim());
 				} catch (IllegalArgumentException e) {
-					e.printStackTrace();
+					LOG.error("Unable to parse description " + description, e);
 				}
 			}
 		}
