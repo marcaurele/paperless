@@ -20,13 +20,13 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
+		<java.version>1.10</java.version>
 		<spring-mock-mvc.version>3.0.6</spring-mock-mvc.version>
 		<commons-lang.version>3.6</commons-lang.version>
 		<commons-io.version>2.6</commons-io.version>
 		<lucene-core.version>7.2.0</lucene-core.version>
 		<rest-assured.version>3.0.6</rest-assured.version>
-		<pdfbox.version>2.0.8</pdfbox.version>
+		<pdfbox.version>2.0.12</pdfbox.version>
 	</properties>
 
 	<dependencies>
