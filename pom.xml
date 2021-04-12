@@ -26,7 +26,7 @@
 		<commons-io.version>2.6</commons-io.version>
 		<lucene-core.version>7.2.0</lucene-core.version>
 		<rest-assured.version>3.0.6</rest-assured.version>
-		<pdfbox.version>2.0.12</pdfbox.version>
+		<pdfbox.version>2.0.15</pdfbox.version>
 	</properties>
 
 	<dependencies>
